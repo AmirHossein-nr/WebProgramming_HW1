@@ -41,16 +41,19 @@ func hash(s string) uint32 {
 }
 
 func getInformationAboutString(context *gin.Context) {
+
 	val, err := client.Get(ctx, context.DefaultQuery("hash", "null")).Result()
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"code": "HASH_NOT_FOUND"})
 		return
 	}
 	context.IndentedJSON(http.StatusFound, gin.H{"message": val})
+
 }
 
 func convertToSHA(context *gin.Context) {
-	message := context.DefaultQuery("message", "null")
+
+	message := context.PostForm("message")
 	hashed := hash(message)
 
 	err := client.Set(ctx, strconv.Itoa(int(hashed)), message, 0).Err()
@@ -59,4 +62,5 @@ func convertToSHA(context *gin.Context) {
 	}
 
 	context.IndentedJSON(http.StatusOK, gin.H{"hash": strconv.Itoa(int(hashed)), "message": message})
+
 }
