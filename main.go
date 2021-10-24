@@ -1,31 +1,32 @@
 package main
 
 import (
-	"fmt"
+	"context"
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"hash/fnv"
 	"net/http"
 	"strconv"
 )
 
-var (
-	ListenAddr = "localhost:8080"
-)
-
-var client redis.UniversalClient
+var client *redis.Client
+var ctx = context.Background()
 
 func main() {
+
 	client = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
-		Password: "",
-		DB:       0,
+		Password: "", // no password set
+		DB:       0,  // use default DB
 	})
 	router := gin.Default()
 	router.POST("/ip/go/sha256", convertToSHA)
 	router.GET("/ip/go/sha256", getInformationAboutString)
-	err := router.Run(ListenAddr)
-	if err == nil {
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND"})
+	})
+	err := router.Run("localhost:8080")
+	if err != nil {
 		return
 	}
 }
@@ -40,20 +41,21 @@ func hash(s string) uint32 {
 }
 
 func getInformationAboutString(context *gin.Context) {
-	// This function is BUGGY !
-	val, err := client.Get("2166136261").Result()
+	val, err := client.Get(ctx, context.DefaultQuery("hash", "null")).Result()
 	if err != nil {
-		fmt.Println(err)
+
 	}
 	context.IndentedJSON(http.StatusFound, gin.H{"message": val})
 }
 
 func convertToSHA(context *gin.Context) {
-	hashed := hash(context.Param("message"))
+	message := context.DefaultQuery("message", "null")
+	hashed := hash(message)
 
-	err := client.Set(strconv.Itoa(int(hashed)), context.Param("message"), 0).Err()
+	err := client.Set(ctx, strconv.Itoa(int(hashed)), message, 0).Err()
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
-	context.IndentedJSON(http.StatusOK, gin.H{"hash": strconv.Itoa(int(hashed))})
+
+	context.IndentedJSON(http.StatusOK, gin.H{"hash": strconv.Itoa(int(hashed)), "message": message})
 }
