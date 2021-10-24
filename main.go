@@ -23,7 +23,7 @@ func main() {
 	router.POST("/ip/go/sha256", convertToSHA)
 	router.GET("/ip/go/sha256", getInformationAboutString)
 	router.NoRoute(func(c *gin.Context) {
-		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND"})
+		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND"})
 	})
 	err := router.Run("localhost:8080")
 	if err != nil {
@@ -43,7 +43,8 @@ func hash(s string) uint32 {
 func getInformationAboutString(context *gin.Context) {
 	val, err := client.Get(ctx, context.DefaultQuery("hash", "null")).Result()
 	if err != nil {
-
+		context.JSON(http.StatusNotFound, gin.H{"code": "HASH_NOT_FOUND"})
+		return
 	}
 	context.IndentedJSON(http.StatusFound, gin.H{"message": val})
 }
