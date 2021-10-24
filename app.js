@@ -9,14 +9,19 @@ const client = redis.createClient({
 });
 
 app.use(express.json());
-app.use(express.urlencoded({extened: true}));
-app.post("/node/sha256", async (req, res) =>{
-    let userString = req.body["user-input"];
-    let hash = crypto.createHash("sha256").update(`${userString}`).digest('hex');
-    await client.set(hash, userString);
-});
-
-app.get("/node/sha256", async (req, res) => {
-    let userString = await client.get(req.param.hash);
-    res.send(JSON.stringify({"user-input": userString}));
-})
+app.use(express.urlencoded());
+app.route("/node/sha256")
+    .get(async (req, res) => {
+        let userString = await client.get(req.param.hash);
+        res.send(JSON.stringify({"message": userString}));
+    })
+    .post(async (req, res) =>{
+        let userString = req.body["message"];
+        let hash = crypto.createHash("sha256").update(`${userString}`).digest('hex');
+        await client.set(hash, userString);
+    });
+app.route("*")
+    .get((req, res) => res.status(404).send(404))
+    .post((req, res) => res.status(404).send(404));
+    
+app.listen(3000);
