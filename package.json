@@ -1,0 +1,25 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "First Assignment Of Web Programming Course - Sharif University Of Technology - Autumn 2021",
+  "main": "app.js",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "redis": "^3.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmirHossein-nr/WebProgramming_HW1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmirHossein-nr/WebProgramming_HW1/issues"
+  },
+  "homepage": "https://github.com/AmirHossein-nr/WebProgramming_HW1#readme"
+}
