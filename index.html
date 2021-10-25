@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="stylesheet.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+  <section>
+    <h1>fill in the blank space below with at least 8 characters</h1>
+    <form method="post">
+      <fieldset>
+        <legend>form</legend>
+        <label for="toBeSent">your word</label>
+        <input type="text" id="toBeSent" min="8" name="message" placeholder="exp. abc123AB">
+        <div class="buttons">
+          <button type="submit" formmethod="post" formaction="http://localhost:8080/ip/node/sha256">send with node.js</button>
+          <button type="submit" formmethod="post" formaction="http://localhost:8080/ip/go/sha256">send with golang</button>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+  <section>
+    <form method="get">
+      <br><br><br><br><br>
+      <fieldset>
+        <legend>form</legend>
+        <label for="toBeSent">your Hash</label>
+        <input type="text" id="HashToSend" min="8" name="hash" placeholder="">
+        <div class="buttons">
+          <button type="submit" formmethod="get" formaction="http://localhost:8080/ip/node/sha256">send with node.js</button>
+          <button type="submit" formmethod="get" formaction="http://localhost:8080/ip/go/sha256">send with golang</button>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+</div>
+</body>
+</html>

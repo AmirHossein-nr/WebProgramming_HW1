@@ -1,0 +1,115 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-image: url("index.jpg");
+    /*background-repeat: no-repeat;*/
+    background-size: cover, auto;
+    font-family: "Comic Sans MS", Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+fieldset {
+    border: 2px solid black;
+    border-radius: 10px;
+    font-family: "Comic Sans MS", serif;
+    color: #B6E2D3;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 2rem;
+}
+legend{
+    animation: pulsate 2.5s infinite alternate;
+    background-color: #775858;
+    display: block;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+@keyframes pulsate {
+    100% {
+        /* Larger blur radius */
+        text-shadow: 0 0 4px #fff,
+            /*0 0 11px #fff,*/
+            /*0 0 19px #fff,*/
+            /*0 0 40px #0fa,*/
+        0 0 80px #0fa,
+        0 0 90px #0fa,
+        0 0 100px #0fa,
+        0 0 150px #0fa;
+    }
+    0% {
+        /* Smaller blur radius */
+        text-shadow: 0 0 2px #fff,
+            /*0 0 4px #fff,*/
+            /*0 0 6px #fff,*/
+            /*0 0 10px #0fa,*/
+        0 0 45px #0fa,
+        0 0 55px #0fa,
+        0 0 70px #0fa,
+        0 0 80px #0fa;
+    }
+}
+label {
+    display: block;
+    font-size: 2rem;
+    padding-bottom: 0.3rem;
+    /*border:1px solid green;*/
+}
+input{
+    /*width: 60%;*/
+    display: block;
+    margin: 2rem;
+    width: 20rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+    color: #EF7C8E;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 4px solid mintcream;
+    outline: none
+}
+input:focus {
+    outline: none
+}
+textarea {
+    height: 10rem;
+    padding: 1rem;
+    width: 100%;
+}
+.wrapper {
+    width: 80%;
+    margin: 0 auto;
+    padding: 1em;
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: #EFB106;
+}
+section {
+    flex-basis: 70%;
+    margin-right: 30%;
+}
+.buttons{
+
+}
+button {
+    font-size: 1rem;
+    color: white;
+    margin: 2rem 2rem;
+    background-color: #BB342F;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+button:hover {
+    background-color: white;
+    color: #BB342F;
+    font-size: 1.2rem;
+}
