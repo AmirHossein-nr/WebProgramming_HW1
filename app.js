@@ -13,7 +13,9 @@ app.use(express.urlencoded());
 app.route("ip/node/sha256")
     .get(async (req, res) => {
         let userString = await client.get(req.param.hash);
-        res.send(JSON.stringify({"message": userString}));
+        if (userString === null) 
+            res.status(404).send(404);
+        else res.send(JSON.stringify({"message": userString}));
     })
     .post(async (req, res) =>{
         let userString = req.body["message"];
