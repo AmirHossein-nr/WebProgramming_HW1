@@ -10,7 +10,7 @@ const client = redis.createClient({
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.route("/node/sha256")
+app.route("ip/node/sha256")
     .get(async (req, res) => {
         let userString = await client.get(req.param.hash);
         res.send(JSON.stringify({"message": userString}));
