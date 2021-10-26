@@ -15,10 +15,8 @@
         <label for="toBeSent">your word</label>
         <input type="text" id="toBeSent" pattern="[a-zA-Z0-9]{8,}" name="message" placeholder="exp. abc123AB">
         <div class="buttons">
-          <button type="submit" formmethod="post" formaction="http://localhost:3000/ip/node/sha256">send with node.js</button>
-          <button type="submit" formmethod="post" formaction="http://localhost:8080/ip/go/sha256">send with golang</button>
-<!--          <button type="submit" formmethod="post" formaction="http://host/node/">send with node.js</button>-->
-<!--          <button type="submit" formmethod="post" formaction="http://host/go/">send with golang</button>-->
+          <button type="submit" formmethod="post" formaction="http://localhost/host/node">send with node.js</button>
+          <button type="submit" formmethod="post" formaction="http://localhost/host/go">send with golang</button>
         </div>
       </fieldset>
     </form>
@@ -31,10 +29,8 @@
         <label for="toBeSent">your Hash</label>
         <input type="text" id="HashToSend" pattern="[a-zA-Z0-9]{8,}" name="hash" placeholder="">
         <div class="buttons">
-          <button type="submit" formmethod="get" formaction="http://localhost:3000/ip/node/sha256">send with node.js</button>
-          <button type="submit" formmethod="get" formaction="http://localhost:8080/ip/go/sha256">send with golang</button>
-<!--          <button type="submit" formmethod="get" formaction="http://host/node/">send with node.js</button>-->
-<!--          <button type="submit" formmethod="get" formaction="http://host/go/">send with golang</button>-->
+          <button type="submit" formmethod="get" formaction="http://localhost/host/node">send with node.js</button>
+          <button type="submit" formmethod="get" formaction="http://localhost/host/go">send with golang</button>
         </div>
       </fieldset>
     </form>
