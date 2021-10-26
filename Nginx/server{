@@ -22,10 +22,10 @@ server {
     # proxy the PHP scripts to Apache listening on 127.0.0.1:80
     #
     location /host/go {
-       proxy_pass   http://192.168.2.106/ip/go/sha256;
+       proxy_pass   http://192.168.2.106:8080/ip/go/sha256;
     }
      location /host/node {
-       proxy_pass   http://192.168.2.106/ip/node/sha256;
+       proxy_pass   http://192.168.2.106:3000/ip/node/sha256;
     }
 
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
