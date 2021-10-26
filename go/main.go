@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/base64"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
-	"hash/fnv"
 	"net/http"
-	"strconv"
 )
 
 var client *redis.Client
@@ -31,13 +31,11 @@ func main() {
 	}
 }
 
-func hash(s string) uint32 {
-	h := fnv.New32a()
-	_, err := h.Write([]byte(s))
-	if err != nil {
-		return 0
-	}
-	return h.Sum32()
+func encryptPassword(password string) string {
+	h := sha256.New()
+	h.Write([]byte(password))
+	b := h.Sum(nil)
+	return base64.StdEncoding.EncodeToString(b)
 }
 
 func getInformationAboutString(context *gin.Context) {
@@ -54,13 +52,13 @@ func getInformationAboutString(context *gin.Context) {
 func convertToSHA(context *gin.Context) {
 
 	message := context.PostForm("message")
-	hashed := hash(message)
+	hashed := encryptPassword(message)
 
-	err := client.Set(ctx, strconv.Itoa(int(hashed)), message, 0).Err()
+	err := client.Set(ctx, hashed, message, 0).Err()
 	if err != nil {
 		panic(err)
 	}
 
-	context.IndentedJSON(http.StatusOK, gin.H{"hash": strconv.Itoa(int(hashed)), "message": message})
+	context.IndentedJSON(http.StatusOK, gin.H{"hash": hashed, "message": message})
 
 }
