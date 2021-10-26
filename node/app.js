@@ -11,18 +11,21 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.route("/ip/node/sha256")
     .get(async (req, res) => {
-        console.log(req.query.hash)
-        // let userString = await client.get(req.param.hash);
-        // if (userString === null) 
-        //     res.status(404).send(404);
-        // else res.send(JSON.stringify({"message": userString}));
-        res.status(200).send(200)
+        client.get(req.query.hash,(err,value)=>{
+            if(err){
+                res.status(404).send(404);
+            }
+            else if(value===null)
+                res.send("this user does not exist!")
+            else
+                res.send(JSON.stringify({"message": value}));
+        })
     })
     .post(async (req, res) =>{
         let userString = req.body["message"];
         let hash = crypto.createHash("sha256").update(`${userString}`).digest('hex');
         await client.set(hash, userString);
-        res.status(200).send(200)
+        res.status(200).json(`message : ${userString} ///// hash : ${hash}`)
     });
 app.route("*")
     .get((req, res) => res.status(404).send(404))
